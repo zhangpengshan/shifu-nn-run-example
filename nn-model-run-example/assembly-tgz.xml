@@ -28,7 +28,6 @@
             <directory>${project.basedir}/src/main/resources/model</directory>
             <outputDirectory>/model</outputDirectory>
             <fileMode>755</fileMode>
-            <lineEnding>unix</lineEnding>
             <includes>
                 <include>*</include>
             </includes>
@@ -56,6 +55,9 @@
                 <include>*:pmml-manager*:*</include>
                 <include>*:nn-model-run-example*:*</include>
                 <include>*:guava*:*</include>
+                <include>*:encog-core*:*</include>
+                <include>*:guagua-core*:*</include>
+                <include>*:shifu*:*</include>
             </includes>
         </dependencySet>
     </dependencySets>
