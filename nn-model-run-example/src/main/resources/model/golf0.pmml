@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<PMML xmlns="http://www.dmg.org/PMML-4_2">
+    <Header copyright=" Copyright [2013-2017] PayPal Software Foundation&#xA;&#xA; Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);&#xA; you may not use this file except in compliance with the License.&#xA; You may obtain a copy of the License at&#xA;&#xA;    http://www.apache.org/licenses/LICENSE-2.0&#xA;&#xA; Unless required by applicable law or agreed to in writing, software&#xA; distributed under the License is distributed on an &quot;AS IS&quot; BASIS,&#xA; WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.&#xA; See the License for the specific language governing permissions and&#xA; limitations under the License.&#xA;">
+        <Application name="shifu" version="0.11.0-SNAPSHOT"/>
+    </Header>
+    <DataDictionary numberOfFields="5">
+        <DataField name="outlook" optype="categorical" dataType="string"/>
+        <DataField name="temperature" optype="continuous" dataType="double"/>
+        <DataField name="humidity" optype="continuous" dataType="double"/>
+        <DataField name="windy" optype="categorical" dataType="string"/>
+        <DataField name="result" optype="categorical" dataType="string"/>
+    </DataDictionary>
+    <NeuralNetwork functionName="regression">
+        <MiningSchema>
+            <MiningField name="outlook" usageType="active" optype="categorical"/>
+            <MiningField name="temperature" usageType="active" optype="continuous"/>
+            <MiningField name="humidity" usageType="active" optype="continuous"/>
+            <MiningField name="windy" usageType="active" optype="categorical"/>
+            <MiningField name="result" usageType="target" optype="categorical"/>
+        </MiningSchema>
+        <Output>
+            <OutputField name="RawResult" optype="continuous" dataType="double" feature="predictedValue"/>
+            <OutputField name="FinalResult" optype="continuous" dataType="double" feature="transformedValue">
+                <NormContinuous field="RawResult">
+                    <LinearNorm orig="0.0" norm="0.0"/>
+                    <LinearNorm orig="1.0" norm="1000.0"/>
+                </NormContinuous>
+            </OutputField>
+        </Output>
+        <ModelStats>
+            <UnivariateStats field="outlook">
+                <DiscrStats>
+                    <Extension name="BinCountNeg" value="[9, 12, 6, 0]"/>
+                    <Extension name="BinWeightedCountPos" value="[6.0, 0.0, 9.0, 0.0]"/>
+                    <Extension name="BinPosRate" value="[0.4, 0.0, 0.6, 0.0]"/>
+                    <Extension name="BinCountPos" value="[6, 0, 9, 0]"/>
+                    <Extension name="BinWeightedCountNeg" value="[9.0, 12.0, 6.0, 0.0]"/>
+                    <Array n="0" type="int"></Array>
+                </DiscrStats>
+            </UnivariateStats>
+            <UnivariateStats field="temperature">
+                <NumericInfo minimum="64.0" maximum="85.0" mean="73.642857" standardDeviation="6.498861" median="72.25"/>
+                <ContStats>
+                    <Extension name="BinCountNeg" value="[3, 9, 9, 3, 3, 0, 0]"/>
+                    <Extension name="BinWeightedCountPos" value="[3.0, 3.0, 3.0, 2.0, 1.0, 3.0, 0.0]"/>
+                    <Extension name="BinPosRate" value="[0.5, 0.25, 0.25, 0.4, 0.25, 1.0, 0.0]"/>
+                    <Extension name="BinCountPos" value="[3, 3, 3, 2, 1, 3, 0]"/>
+                    <Extension name="KS" value="20.0"/>
+                    <Extension name="BinWOE" value="[0.5877866645021192, -0.5108256235659905, -0.5108256235659905, 0.18232155664395477, -0.5108256231659907, 21.416413018006356, 0.0]"/>
+                    <Extension name="IV" value="4.498505"/>
+                    <Extension name="BinWeightedCountNeg" value="[3.0, 9.0, 9.0, 3.0, 3.0, 0.0, 0.0]"/>
+                    <Interval closure="openClosed" leftMargin="-INF" rightMargin="68.0"/>
+                    <Interval closure="openClosed" leftMargin="68.0" rightMargin="71.5"/>
+                    <Interval closure="openClosed" leftMargin="71.5" rightMargin="76.0"/>
+                    <Interval closure="openClosed" leftMargin="76.0" rightMargin="81.5"/>
+                    <Interval closure="openClosed" leftMargin="81.5" rightMargin="84.0"/>
+                    <Interval closure="openClosed" leftMargin="84.0" rightMargin="INF"/>
+                </ContStats>
+            </UnivariateStats>
+            <UnivariateStats field="humidity">
+                <NumericInfo minimum="65.0" maximum="96.0" mean="80.214286" standardDeviation="9.699222" median="78.75"/>
+                <ContStats>
+                    <Extension name="BinCountNeg" value="[10, 11, 0, 3, 3, 0]"/>
+                    <Extension name="BinWeightedCountPos" value="[3.0, 3.0, 3.0, 3.0, 3.0, 0.0]"/>
+                    <Extension name="BinPosRate" value="[0.23076923076923078, 0.21428571428571427, 1.0, 0.5, 0.5, 0.0]"/>
+                    <Extension name="BinCountPos" value="[3, 3, 3, 3, 3, 0]"/>
+                    <Extension name="KS" value="37.777778"/>
+                    <Extension name="BinWOE" value="[-0.6161861391938169, -0.7114963189735962, 21.416413018006356, 0.5877866645021192, 0.5877866645021192, 0.0]"/>
+                    <Extension name="IV" value="4.640327"/>
+                    <Extension name="BinWeightedCountNeg" value="[10.0, 11.0, 0.0, 3.0, 3.0, 0.0]"/>
+                    <Interval closure="openClosed" leftMargin="-INF" rightMargin="75.0"/>
+                    <Interval closure="openClosed" leftMargin="75.0" rightMargin="82.5"/>
+                    <Interval closure="openClosed" leftMargin="82.5" rightMargin="87.5"/>
+                    <Interval closure="openClosed" leftMargin="87.5" rightMargin="92.5"/>
+                    <Interval closure="openClosed" leftMargin="92.5" rightMargin="INF"/>
+                </ContStats>
+            </UnivariateStats>
+            <UnivariateStats field="windy">
+                <DiscrStats>
+                    <Extension name="BinCountNeg" value="[18, 9, 0]"/>
+                    <Extension name="BinWeightedCountPos" value="[6.0, 9.0, 0.0]"/>
+                    <Extension name="BinPosRate" value="[0.25, 0.5, 0.0]"/>
+                    <Extension name="BinCountPos" value="[6, 9, 0]"/>
+                    <Extension name="BinWeightedCountNeg" value="[18.0, 9.0, 0.0]"/>
+                    <Array n="0" type="int"></Array>
+                </DiscrStats>
+            </UnivariateStats>
+        </ModelStats>
+        <Targets>
+            <Target field="result" optype="categorical">
+                <TargetValue value="Don't Play" displayValue="Positive"/>
+                <TargetValue value="Play" displayValue="Negative"/>
+            </Target>
+        </Targets>
+        <LocalTransformations>
+            <DerivedField name="outlook_zscale" optype="continuous" dataType="double">
+                <MapValues mapMissingTo="-1.4631371520807557" defaultValue="-1.4631371520807557" outputColumn="out" dataType="double">
+                    <FieldColumnPair field="outlook" column="origin"/>
+                    <InlineTable>
+                        <row>
+                            <origin>rain</origin>
+                            <out>0.1755758027645089</out>
+                        </row>
+                        <row>
+                            <origin>overcast</origin>
+                            <out>-1.4631371520807557</out>
+                        </row>
+                        <row>
+                            <origin>sunny</origin>
+                            <out>0.994932280187141</out>
+                        </row>
+                    </InlineTable>
+                </MapValues>
+            </DerivedField>
+            <DerivedField name="temperature_zscale" optype="continuous" dataType="double">
+                <NormContinuous mapMissingTo="0.0" field="temperature" outliers="asExtremeValues">
+                    <LinearNorm orig="47.64741300000001" norm="-4.0"/>
+                    <LinearNorm orig="99.63830100000001" norm="4.0"/>
+                </NormContinuous>
+            </DerivedField>
+            <DerivedField name="humidity_zscale" optype="continuous" dataType="double">
+                <NormContinuous mapMissingTo="0.0" field="humidity" outliers="asExtremeValues">
+                    <LinearNorm orig="41.417398" norm="-4.0"/>
+                    <LinearNorm orig="119.01117400000001" norm="4.0"/>
+                </NormContinuous>
+            </DerivedField>
+            <DerivedField name="windy_zscale" optype="continuous" dataType="double">
+                <MapValues mapMissingTo="-2.852169815841173" defaultValue="-2.852169815841173" outputColumn="out" dataType="double">
+                    <FieldColumnPair field="windy" column="origin"/>
+                    <InlineTable>
+                        <row>
+                            <origin>false</origin>
+                            <out>-0.8556517433595808</out>
+                        </row>
+                        <row>
+                            <origin>true</origin>
+                            <out>1.1408663291220114</out>
+                        </row>
+                    </InlineTable>
+                </MapValues>
+            </DerivedField>
+            <DerivedField name="bias" optype="continuous" dataType="double">
+                <Constant>1</Constant>
+            </DerivedField>
+        </LocalTransformations>
+        <NeuralInputs>
+            <NeuralInput id="0,0">
+                <DerivedField name="outlook_zscale" optype="continuous" dataType="double">
+                    <FieldRef field="outlook_zscale"/>
+                </DerivedField>
+            </NeuralInput>
+            <NeuralInput id="0,1">
+                <DerivedField name="temperature_zscale" optype="continuous" dataType="double">
+                    <FieldRef field="temperature_zscale"/>
+                </DerivedField>
+            </NeuralInput>
+            <NeuralInput id="0,2">
+                <DerivedField name="humidity_zscale" optype="continuous" dataType="double">
+                    <FieldRef field="humidity_zscale"/>
+                </DerivedField>
+            </NeuralInput>
+            <NeuralInput id="0,3">
+                <DerivedField name="windy_zscale" optype="continuous" dataType="double">
+                    <FieldRef field="windy_zscale"/>
+                </DerivedField>
+            </NeuralInput>
+            <NeuralInput id="bias">
+                <DerivedField name="bias" optype="continuous" dataType="double">
+                    <FieldRef field="bias"/>
+                </DerivedField>
+            </NeuralInput>
+        </NeuralInputs>
+        <NeuralLayer numberOfNeurons="20" activationFunction="tanh">
+            <Neuron id="1,0" bias="1.1760499605431902">
+                <Con from="0,0" weight="-0.7290294366465193"/>
+                <Con from="0,1" weight="-0.8636476091567373"/>
+                <Con from="0,2" weight="-0.8625196578094458"/>
+                <Con from="0,3" weight="-0.16292918431713851"/>
+            </Neuron>
+            <Neuron id="1,1" bias="1.0424242579673395">
+                <Con from="0,0" weight="-0.7763016991756423"/>
+                <Con from="0,1" weight="-0.41702366001344765"/>
+                <Con from="0,2" weight="0.17864951677184548"/>
+                <Con from="0,3" weight="0.6678382328575818"/>
+            </Neuron>
+            <Neuron id="1,2" bias="-0.9163979282601827">
+                <Con from="0,0" weight="0.40344624527558476"/>
+                <Con from="0,1" weight="-0.2357625980127537"/>
+                <Con from="0,2" weight="0.6010901962679428"/>
+                <Con from="0,3" weight="-0.8782345383166309"/>
+            </Neuron>
+            <Neuron id="1,3" bias="-0.12041939073351879">
+                <Con from="0,0" weight="0.7089983071498058"/>
+                <Con from="0,1" weight="-0.021251297438021382"/>
+                <Con from="0,2" weight="0.7916308764960754"/>
+                <Con from="0,3" weight="-0.9841315321657198"/>
+            </Neuron>
+            <Neuron id="1,4" bias="-0.8188213829939058">
+                <Con from="0,0" weight="-0.32488518202628697"/>
+                <Con from="0,1" weight="-0.586973780031812"/>
+                <Con from="0,2" weight="0.748461715009168"/>
+                <Con from="0,3" weight="-0.795914131260149"/>
+            </Neuron>
+            <Neuron id="1,5" bias="0.6691721751403804">
+                <Con from="0,0" weight="-0.027731513660323566"/>
+                <Con from="0,1" weight="-0.770211510271264"/>
+                <Con from="0,2" weight="-0.45058516359581924"/>
+                <Con from="0,3" weight="0.8962414623336509"/>
+            </Neuron>
+            <Neuron id="1,6" bias="0.361524779328954">
+                <Con from="0,0" weight="-0.39780438380127764"/>
+                <Con from="0,1" weight="0.9817642493678376"/>
+                <Con from="0,2" weight="-0.5538289130540426"/>
+                <Con from="0,3" weight="1.0147494352845239"/>
+            </Neuron>
+            <Neuron id="1,7" bias="-0.1251525465640011">
+                <Con from="0,0" weight="-0.13334257424576546"/>
+                <Con from="0,1" weight="-1.2555137359850357"/>
+                <Con from="0,2" weight="1.1336947253981158"/>
+                <Con from="0,3" weight="0.552517114929889"/>
+            </Neuron>
+            <Neuron id="1,8" bias="0.7936913379703727">
+                <Con from="0,0" weight="0.21395309022329995"/>
+                <Con from="0,1" weight="0.7225660481981065"/>
+                <Con from="0,2" weight="0.28223427646585897"/>
+                <Con from="0,3" weight="-0.9030412358952166"/>
+            </Neuron>
+            <Neuron id="1,9" bias="1.1784972576900474">
+                <Con from="0,0" weight="-0.7944173444369718"/>
+                <Con from="0,1" weight="-0.5913685490046432"/>
+                <Con from="0,2" weight="-0.7174746039391936"/>
+                <Con from="0,3" weight="-0.022522503251938174"/>
+            </Neuron>
+            <Neuron id="1,10" bias="0.7248208472425821">
+                <Con from="0,0" weight="0.9594992530914493"/>
+                <Con from="0,1" weight="0.9144000017127171"/>
+                <Con from="0,2" weight="0.4107452287142031"/>
+                <Con from="0,3" weight="-0.5160318838480553"/>
+            </Neuron>
+            <Neuron id="1,11" bias="-0.5948588506629451">
+                <Con from="0,0" weight="-1.0699030052778853"/>
+                <Con from="0,1" weight="0.05973524310947212"/>
+                <Con from="0,2" weight="-0.8331880055760651"/>
+                <Con from="0,3" weight="0.060555755883789794"/>
+            </Neuron>
+            <Neuron id="1,12" bias="-0.9748711231690588">
+                <Con from="0,0" weight="-0.5520504339082508"/>
+                <Con from="0,1" weight="0.8127786974510233"/>
+                <Con from="0,2" weight="-0.0765843730578415"/>
+                <Con from="0,3" weight="0.6638085510467058"/>
+            </Neuron>
+            <Neuron id="1,13" bias="1.1641885313577727">
+                <Con from="0,0" weight="0.5398701267564969"/>
+                <Con from="0,1" weight="-0.04116931370703127"/>
+                <Con from="0,2" weight="-0.9594449496932727"/>
+                <Con from="0,3" weight="-0.007522753103048235"/>
+            </Neuron>
+            <Neuron id="1,14" bias="-0.7715461226897848">
+                <Con from="0,0" weight="0.24540842033038318"/>
+                <Con from="0,1" weight="-0.5911262613445719"/>
+                <Con from="0,2" weight="0.9765031398794521"/>
+                <Con from="0,3" weight="0.46142860255741497"/>
+            </Neuron>
+            <Neuron id="1,15" bias="0.3067679292479912">
+                <Con from="0,0" weight="-1.504391647682264"/>
+                <Con from="0,1" weight="0.16486705921319542"/>
+                <Con from="0,2" weight="-0.14785040998083204"/>
+                <Con from="0,3" weight="-0.9551212471874516"/>
+            </Neuron>
+            <Neuron id="1,16" bias="0.5375727484189129">
+                <Con from="0,0" weight="1.2763970990609605"/>
+                <Con from="0,1" weight="0.6352393154803067"/>
+                <Con from="0,2" weight="-0.1331401451459522"/>
+                <Con from="0,3" weight="-1.1057042344569359"/>
+            </Neuron>
+            <Neuron id="1,17" bias="-0.7497422207543011">
+                <Con from="0,0" weight="0.1851475553336478"/>
+                <Con from="0,1" weight="0.6950403913346752"/>
+                <Con from="0,2" weight="0.9167176552511817"/>
+                <Con from="0,3" weight="-0.66450787950235"/>
+            </Neuron>
+            <Neuron id="1,18" bias="-0.709344500822824">
+                <Con from="0,0" weight="-0.9684929797233328"/>
+                <Con from="0,1" weight="0.3477730852513994"/>
+                <Con from="0,2" weight="0.8384932531539702"/>
+                <Con from="0,3" weight="0.40900674545823346"/>
+            </Neuron>
+            <Neuron id="1,19" bias="-0.25133580128113486">
+                <Con from="0,0" weight="0.7121037810874763"/>
+                <Con from="0,1" weight="-0.2898975925266276"/>
+                <Con from="0,2" weight="0.6021475213507909"/>
+                <Con from="0,3" weight="-0.463957389654997"/>
+            </Neuron>
+        </NeuralLayer>
+        <NeuralLayer numberOfNeurons="1" activationFunction="logistic">
+            <Neuron id="2,0" bias="-0.035728015967005256">
+                <Con from="1,0" weight="-1.3114013056176654"/>
+                <Con from="1,1" weight="-0.416185493046349"/>
+                <Con from="1,2" weight="0.020466198205693124"/>
+                <Con from="1,3" weight="0.3208800509646609"/>
+                <Con from="1,4" weight="-0.7617368050177539"/>
+                <Con from="1,5" weight="0.0885062075874554"/>
+                <Con from="1,6" weight="0.5048539023704027"/>
+                <Con from="1,7" weight="1.0369306626674943"/>
+                <Con from="1,8" weight="-0.09979905039695673"/>
+                <Con from="1,9" weight="-0.8722719353821218"/>
+                <Con from="1,10" weight="-0.7002484325240456"/>
+                <Con from="1,11" weight="-0.049638026938223265"/>
+                <Con from="1,12" weight="-0.5289354446584433"/>
+                <Con from="1,13" weight="0.6136348727563025"/>
+                <Con from="1,14" weight="0.18232461395726318"/>
+                <Con from="1,15" weight="-1.2911030369288141"/>
+                <Con from="1,16" weight="-1.120462753528973"/>
+                <Con from="1,17" weight="0.8749582198858241"/>
+                <Con from="1,18" weight="-0.4636312071461113"/>
+                <Con from="1,19" weight="0.020874398319295363"/>
+            </Neuron>
+        </NeuralLayer>
+        <NeuralOutputs numberOfOutputs="1">
+            <NeuralOutput outputNeuron="2,0">
+                <DerivedField optype="continuous" dataType="double">
+                    <FieldRef field="result"/>
+                </DerivedField>
+            </NeuralOutput>
+        </NeuralOutputs>
+    </NeuralNetwork>
+</PMML>
